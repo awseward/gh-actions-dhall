@@ -12,4 +12,4 @@ RUN apt-get update \
 COPY bin/* /bin/
 COPY entrypoint.sh /entrypoint.sh
 
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
