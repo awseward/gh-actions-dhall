@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+temp_file="$(mktemp)"
+
+collect_errors() {
+  echo
+  find . -type f -name '*.dhall' | while read -r fpath; do
+    set +e
+    echo "Checking ${fpath} ..."
+    dhall --no-cache <<< "${fpath}" > /dev/null
+    set -e
+  done
+}
+
+collect_errors 2> "${temp_file}"
+
+if [ $(( $(wc -l < "${temp_file}") )) != 0 ]; then
+  cat "${temp_file}"
+  exit 1
+fi

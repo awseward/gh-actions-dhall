@@ -1,0 +1,12 @@
+name: 'Dhall Actions'
+description: 'A couple of actions for checking dhall files'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.dhallVersion }}
+inputs:
+  dhallVersion:
+    description: 'Version of dhall-haskell to use (see: https://github.com/dhall-lang/dhall-haskell)'
+    required: false
+    default: '1.36.0'
