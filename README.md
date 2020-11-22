@@ -1,6 +1,6 @@
 # gh-actions-dhall
 
-Checks all [Dhall] files in a repository; includes typechecking and linting.
+A GitHub Action which typechecks and lints all [Dhall] files in a repository.
 
 ## Inputs
 
