@@ -1,6 +1,6 @@
 # gh-actions-dhall
 
-Checks all [dhall] files in a repository; includes typechecking and linting.
+Checks all [Dhall] files in a repository; includes typechecking and linting.
 
 ## Inputs
 
