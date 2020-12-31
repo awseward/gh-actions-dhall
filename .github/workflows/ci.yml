@@ -1,14 +1,27 @@
-name: CI
-on: [push]
-jobs:
-  Dockerfile:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: brpaz/hadolint-action@v1.1.0
+# Warning: this is a generated file; please avoid editing it manually unless
+# doing so temporarily.
 
-  shell:
-    runs-on: ubuntu-latest
+jobs:
+  check-Dockerfile:
+    runs-on:
+      - ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: awseward/gh-actions-shell@0.1.0
+      - uses: "actions/checkout@v2"
+      - uses: "brpaz/hadolint-action@v1.1.0"
+  check-dhall:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "awseward/gh-actions-dhall@0.2.4"
+        with:
+          dhallVersion: '1.37.1'
+  check-shell:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "awseward/gh-actions-shell@0.1.2"
+name: CI
+on:
+  - push
