@@ -3,16 +3,13 @@ let imports =
 
 let GHA = imports.gha/jobs
 
-let uses = GHA.Step.uses
-
 let Inputs = { Type = { dhallVersion : Text }, default.dhallVersion = "1.36.0" }
 
-let mkJob =
+let mkJobV =
+      λ(uses : Text) →
       λ(inputs : Inputs.Type) →
-        uses
-          GHA.Uses::{
-          , uses = "awseward/gh-actions-dhall@0.2.2"
-          , `with` = toMap inputs
-          }
+        GHA.Step.uses GHA.Uses::{ uses, `with` = toMap inputs }
 
-in  { mkJob, Inputs }
+let mkJob = mkJobV "awseward/gh-actions-dhall@0.2.2"
+
+in  { mkJob, mkJobV, Inputs }
