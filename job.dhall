@@ -10,6 +10,6 @@ let mkJobV =
       λ(inputs : Inputs.Type) →
         GHA.Step.uses GHA.Uses::{ uses, `with` = toMap inputs }
 
-let mkJob = mkJobV "awseward/gh-actions-dhall@0.2.3"
+let mkJob = mkJobV "awseward/gh-actions-dhall@0.2.4"
 
 in  { mkJob, mkJobV, Inputs }
