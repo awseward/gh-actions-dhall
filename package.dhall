@@ -7,7 +7,7 @@ let GHA = imports.GHA
 
 let name = "awseward/gh-actions-dhall"
 
-let version = "0.2.4"
+let version = "0.2.5"
 
 let Inputs = { Type = { dhallVersion : Text }, default.dhallVersion = "1.36.0" }
 
