@@ -5,6 +5,8 @@ let imports =
 
 let GHA = imports.GHA
 
+let name = "awseward/gh-actions-dhall"
+
 let version = "0.2.4"
 
 let Inputs = { Type = { dhallVersion : Text }, default.dhallVersion = "1.36.0" }
@@ -14,9 +16,6 @@ let mkStep =
       λ(inputs : Inputs.Type) →
         GHA.Step.mkUses
           common
-          GHA.Step.Uses::{
-          , uses = "awseward/gh-actions-dhall@${version}"
-          , `with` = toMap inputs
-          }
+          GHA.Step.Uses::{ uses = "${name}@${version}", `with` = toMap inputs }
 
 in  { mkStep, Inputs } ⫽ GHA.Step.{ Common }
