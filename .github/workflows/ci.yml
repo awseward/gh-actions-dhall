@@ -1,5 +1,8 @@
-# Warning: this is a generated file; please avoid editing it manually unless
-# doing so temporarily.
+# Warning: this is an automatically generated file.
+#
+# It was generated using '.github/.workflow_templates/ci.dhall'.
+#
+# Please avoid editing it manually unless doing so temporarily.
 
 jobs:
   check-Dockerfile:
@@ -13,7 +16,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-dhall@0.2.4"
+      - uses: "awseward/gh-actions-dhall@0.2.5"
         with:
           dhallVersion: '1.37.1'
   check-shell:
@@ -21,7 +24,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-shell@0.1.2"
+      - uses: "awseward/gh-actions-shell@0.1.3"
 name: CI
 on:
   - push
