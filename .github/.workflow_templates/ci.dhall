@@ -1,34 +1,47 @@
 let imports = ../imports.dhall
 
-let GHA = imports.action_templates.gha/jobs
+let GHA = imports.GHA
 
-let uses = GHA.Step.uses
+let Checkout = imports.action_templates.actions/Checkout
 
-let check-shell = imports.gh-actions-shell
+let On = GHA.On
 
-let check-dhall = imports.gh-actions-dhall
+let mkUses = GHA.Step.mkUses
 
-let checkedOut = imports.checkedOut
-
-in  { name = "CI"
-    , on = [ "push" ]
+in  GHA.Workflow::{
+    , name = "CI"
+    , on = On.names [ "push" ]
     , jobs = toMap
-        { check-Dockerfile =
-          { runs-on = [ "ubuntu-latest" ]
+        { check-Dockerfile = GHA.Job::{
+          , runs-on = [ "ubuntu-latest" ]
           , steps =
-              checkedOut
-                [ uses GHA.Uses::{ uses = "brpaz/hadolint-action@v1.1.0" } ]
+              Checkout.plainDo
+                [ [ mkUses
+                      GHA.Step.Common::{=}
+                      GHA.Step.Uses::{ uses = "brpaz/hadolint-action@v1.1.0" }
+                  ]
+                ]
           }
-        , check-shell =
-          { runs-on = [ "ubuntu-latest" ]
-          , steps = checkedOut [ check-shell.mkJob check-shell.Inputs::{=} ]
-          }
-        , check-dhall =
-          { runs-on = [ "ubuntu-latest" ]
+        , check-shell = GHA.Job::{
+          , runs-on = [ "ubuntu-latest" ]
           , steps =
-              checkedOut
-                [ check-dhall.mkJob
-                    check-dhall.Inputs::{ dhallVersion = "1.37.1" }
+              Checkout.plainDo
+                [ [ let action = imports.gh-actions-shell
+
+                    in  action.mkStep action.Common::{=} action.Inputs::{=}
+                  ]
+                ]
+          }
+        , check-dhall = GHA.Job::{
+          , runs-on = [ "ubuntu-latest" ]
+          , steps =
+              Checkout.plainDo
+                [ [ let action = imports.gh-actions-dhall
+
+                    in  action.mkStep
+                          action.Common::{=}
+                          action.Inputs::{ dhallVersion = "1.37.1" }
+                  ]
                 ]
           }
         }
