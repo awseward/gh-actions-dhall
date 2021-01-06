@@ -2,11 +2,11 @@ let imports = ../imports.dhall
 
 let GHA = imports.GHA
 
-let Checkout = imports.action_templates.actions/Checkout
-
 let On = GHA.On
 
-let mkUses = GHA.Step.mkUses
+let action_templates = imports.action_templates
+
+let Checkout = action_templates.actions/Checkout
 
 in  GHA.Workflow::{
     , name = "CI"
@@ -16,9 +16,9 @@ in  GHA.Workflow::{
           , runs-on = [ "ubuntu-latest" ]
           , steps =
               Checkout.plainDo
-                [ [ mkUses
-                      GHA.Step.Common::{=}
-                      GHA.Step.Uses::{ uses = "brpaz/hadolint-action@v1.1.0" }
+                [ [ let action = action_templates.brpaz/Hadolint
+
+                    in  action.mkStep action.Common::{=} action.Inputs::{=}
                   ]
                 ]
           }
