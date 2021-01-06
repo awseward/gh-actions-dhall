@@ -10,7 +10,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "brpaz/hadolint-action@v1.1.0"
+      - uses: "brpaz/hadolint-action@v1.2.1"
   check-dhall:
     runs-on:
       - ubuntu-latest
