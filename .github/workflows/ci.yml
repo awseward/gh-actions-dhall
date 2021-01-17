@@ -14,11 +14,17 @@ jobs:
   check-dhall:
     runs-on:
       - ubuntu-latest
+    strategy:
+      matrix:
+        dhallVersion:
+          - "1.37.1"
+          - "1.37.0"
+          - "1.36.0"
     steps:
       - uses: "actions/checkout@v2"
       - uses: "awseward/gh-actions-dhall@0.2.5"
         with:
-          dhallVersion: '1.37.1'
+          dhallVersion: "${{ matrix.dhallVersion }}"
   check-shell:
     runs-on:
       - ubuntu-latest
