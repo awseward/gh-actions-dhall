@@ -4,6 +4,8 @@ let GHA = imports.GHA
 
 let On = GHA.On
 
+let OS = GHA.OS.Type
+
 let action_templates = imports.action_templates
 
 let Checkout = action_templates.actions/Checkout
@@ -13,35 +15,32 @@ in  GHA.Workflow::{
     , on = On.names [ "push" ]
     , jobs = toMap
         { check-Dockerfile = GHA.Job::{
-          , runs-on = [ "ubuntu-latest" ]
+          , runs-on = [ OS.ubuntu-latest ]
           , steps =
               Checkout.plainDo
-                [ [ let action = action_templates.brpaz/Hadolint
+                [ let a = action_templates.brpaz/Hadolint
 
-                    in  action.mkStep action.Common::{=} action.Inputs::{=}
-                  ]
+                  in  a.mkStep a.Common::{=} a.Inputs::{=}
                 ]
           }
         , check-shell = GHA.Job::{
-          , runs-on = [ "ubuntu-latest" ]
+          , runs-on = [ OS.ubuntu-latest ]
           , steps =
               Checkout.plainDo
-                [ [ let action = imports.gh-actions-shell
+                [ let a = imports.gh-actions-shell
 
-                    in  action.mkStep action.Common::{=} action.Inputs::{=}
-                  ]
+                  in  a.mkStep a.Common::{=} a.Inputs::{=}
                 ]
           }
         , check-dhall = GHA.Job::{
-          , runs-on = [ "ubuntu-latest" ]
+          , runs-on = [ OS.ubuntu-latest ]
           , steps =
               Checkout.plainDo
-                [ [ let action = imports.gh-actions-dhall
+                [ let a = imports.gh-actions-dhall
 
-                    in  action.mkStep
-                          action.Common::{=}
-                          action.Inputs::{ dhallVersion = "1.37.1" }
-                  ]
+                  in  a.mkStep
+                        a.Common::{=}
+                        a.Inputs::{ dhallVersion = "1.37.1" }
                 ]
           }
         }
