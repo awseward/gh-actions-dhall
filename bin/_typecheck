@@ -6,7 +6,7 @@ temp_file="$(mktemp)"
 
 collect_errors() {
   echo
-  find . -type f -name '*.dhall' | while read -r fpath; do
+  find . -type f -name '*.dhall' | sort -u | while read -r fpath; do
     set +e
     echo "Checking ${fpath} ..."
     dhall --no-cache <<< "${fpath}" > /dev/null
