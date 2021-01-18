@@ -9,7 +9,7 @@ let name = "awseward/gh-actions-dhall"
 
 let version = "0.2.7"
 
-let Inputs = { Type = { dhallVersion : Text }, default.dhallVersion = "1.36.0" }
+let Inputs = ./inputs.dhall
 
 let mkStep =
       GHA.actions.mkStep
