@@ -2,14 +2,29 @@
 
 set -euo pipefail
 
+echo "Inputs:"
+env | grep -e '^INPUT_' || true
+echo "---"
+
 temp_file="$(mktemp)"
 
 collect_errors() {
+  if [ "${INPUT_TYPECHECK_PACKAGE_FILES_ONLY:-false}" = 'true' ]; then
+    local -r find_name='package.dhall'
+  else
+    local -r find_name='*.dhall'
+  fi
+
+  if [ "${INPUT_TYPECHECK_NO_CACHE:-true}" = 'true' ]; then
+    local -r no_cache_flag='--no-cache'
+  fi
+
+  echo "Typechecking, find_name: ${find_name}, no_cache_flag: ${no_cache_flag:-}"
   echo
-  find . -type f -name '*.dhall' | sort -u | while read -r fpath; do
+  find . -type f -name "${find_name}" | sort -u | while read -r fpath; do
     set +e
-    echo "Checking ${fpath} ..."
-    dhall --no-cache <<< "${fpath}" > /dev/null
+    echo "Typechecking ${fpath} ..."
+    dhall ${no_cache_flag:-} <<< "${fpath}" > /dev/null
     set -e
   done
 }
