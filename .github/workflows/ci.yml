@@ -16,9 +16,11 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-dhall@0.2.8"
+      - uses: "awseward/gh-actions-dhall@0.2.9"
         with:
           dhallVersion: '1.37.1'
+          typecheck_no_cache: false
+          typecheck_package_files_only: false
   check-shell:
     runs-on:
       - ubuntu-latest
