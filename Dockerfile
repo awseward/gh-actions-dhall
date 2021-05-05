@@ -9,6 +9,7 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+COPY lib.sh /
 COPY bin/* /bin/
 COPY entrypoint.sh /entrypoint.sh
 

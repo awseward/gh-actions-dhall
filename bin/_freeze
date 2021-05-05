@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
-find . -type f -name '*.dhall' | sort -u | while read -r fpath; do
-  echo "${fpath}" | xargs -t dhall freeze --inplace
-done
+# shellcheck disable=SC1091
+source lib.sh
+
+_check_version
+
+find . -type f -name '*.dhall' | sort -u | xargs -t dhall freeze
 
 git diff --color=always --exit-code
