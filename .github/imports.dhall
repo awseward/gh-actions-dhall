@@ -1,6 +1,6 @@
   { gh-actions-dhall =
-      https://raw.githubusercontent.com/awseward/gh-actions-dhall/0.2.9/package.dhall
-        sha256:95ebf22aff9f687c23c49bd5c9933db53a19f5297c78d0485e8fbd34a9d513c7
+      https://raw.githubusercontent.com/awseward/gh-actions-dhall/0.3.0/package.dhall
+        sha256:96b1d3a13c55ed24d4f40053210d3bab5ab1da766c596f7f59b142c16347d145
   , gh-actions-shell =
       https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.5/package.dhall
         sha256:527552e5f702e7f355e4cdb9fc4256f200a70ae796056257ca6ce02c9a728f8c
