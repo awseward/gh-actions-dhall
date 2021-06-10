@@ -5,6 +5,6 @@
       https://raw.githubusercontent.com/awseward/gh-actions-shell/0.1.5/package.dhall
         sha256:527552e5f702e7f355e4cdb9fc4256f200a70ae796056257ca6ce02c9a728f8c
   }
-⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/20210514020537/package.dhall
-      sha256:5365fa3f87b28f72ec098d90f4b2788cdafdb9463032afa75b8b7ebafdd02351
-  ).{ GHA, action_templates }
+⫽ ( https://raw.githubusercontent.com/awseward/dhall-misc/20210514024913/package.dhall
+      sha256:31dbad3742eb28c2f138b1725003ca52e29b303337623d9fac216893b68c6337
+  ).{ GHA, job-templates }
