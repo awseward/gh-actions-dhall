@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # shellcheck disable=SC1091
-source lib.sh
+source /lib.sh # Sorta breaks ability to run this outside the container, but 🤷
 
 _check_version
 
