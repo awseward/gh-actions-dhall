@@ -9,7 +9,7 @@ runs:
 inputs:
   dhallVersion:
     required: false
-    default: '1.36.0'
+    default: '1.39.0'
     description: |
       Version of dhall-haskell to use.
 

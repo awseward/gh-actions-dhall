@@ -6,7 +6,7 @@ A GitHub Action which typechecks and lints all [Dhall] files in a repository.
 
 ### `dhallVersion`
 
-**Default:** `1.36.0`
+**Default:** `1.39.0`
 
 The version of [dhall-haskell] to use.
 
