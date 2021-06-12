@@ -27,7 +27,7 @@ in  GHA.Workflow::{
           , runs-on = [ OS.ubuntu-latest ]
           , steps =
               Checkout.plainDo
-                [ let a = imports.gh-actions-shell
+                [ let a = imports.actions-catalog.awseward/gh-actions-shell
 
                   in  a.mkStep a.Common::{=} a.Inputs::{=}
                 ]
