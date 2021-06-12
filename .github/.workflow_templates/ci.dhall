@@ -38,9 +38,7 @@ in  GHA.Workflow::{
               Checkout.plainDo
                 [ let a = imports.gh-actions-dhall
 
-                  in  a.mkStep
-                        a.Common::{=}
-                        a.Inputs::{ dhallVersion = "1.39.0" }
+                  in  a.mkStep a.Common::{=} a.Inputs::{=}
                 ]
           }
         }
