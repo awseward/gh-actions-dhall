@@ -1,0 +1,9 @@
+Whether to only typecheck `package.dhall` files (as opposed to `*.dhall`.
+
+The thought here is that checking `package.dhall` is likely to transitively
+check all other `*.dhall`, so it should be sufficient while avoiding lots of
+duplicated work.
+
+However, this is certainly not always the case, so consider that when setting
+this input to `true`.''
+

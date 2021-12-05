@@ -3,6 +3,8 @@ let InputSpec =
 
 in  { name : Text
     , description : Text
-    , inputs : List InputSpec
-    , runs : < FIXME >
+    , runs :
+        -- FIXME
+        Optional <>
+    , inputs : List { mapKey : Text, mapValue : InputSpec }
     }

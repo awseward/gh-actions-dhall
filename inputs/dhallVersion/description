@@ -1,0 +1,3 @@
+Version of dhall-haskell to use.
+
+Should be a tag from https://github.com/dhall-lang/dhall-haskell.

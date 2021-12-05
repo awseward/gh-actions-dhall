@@ -1,0 +1,1 @@
+Whether a diff resulting from `dhall freeze` should be treated as an error.

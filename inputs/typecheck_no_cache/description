@@ -1,0 +1,5 @@
+Having this set to `false` (meaning: caching enabled) can greatly speed up
+checking as the number of files to check increases.
+
+However, doing so can also lead to some unpredictability, as caching in general
+can be known to do.
