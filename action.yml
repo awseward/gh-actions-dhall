@@ -10,28 +10,29 @@ inputs:
   errorOnFreezeDiff:
     default: false
     description: |
-      Whether a diff resulting from `dhall freeze` should be treated as an
-      error.
+      Whether a diff resulting from `dhall freeze` should be treated as an error.
     required: false
   typecheck_no_cache:
     default: false
     description: |
-      Whether to pass `--no-cache` when typechecking.
+      Having this set to `false` (meaning: caching enabled) can greatly speed up
+      checking as the number of files to check increases.
       
-      Having this set to `false` (meaning: caching enabled) can greatly speed
-      up checking as the number of files to check increases. However, doing so
-      can also lead to some unpredictability, as caching in general can be
-      known to do.
+      However, doing so can also lead to some unpredictability, as caching in general
+      can be known to do.
     required: false
   typecheck_package_files_only:
     default: false
     description: |
       Whether to only typecheck `package.dhall` files (as opposed to `*.dhall`.
       
-      The thought here is that checking `package.dhall` is likely to
-      transitively check all other `*.dhall`, so it should be sufficient while
-      avoiding lots of duplicated work. However, this is certainly not always
-      the case, so consider that when setting this input to `true`.
+      The thought here is that checking `package.dhall` is likely to transitively
+      check all other `*.dhall`, so it should be sufficient while avoiding lots of
+      duplicated work.
+      
+      However, this is certainly not always the case, so consider that when setting
+      this input to `true`.''
+      
     required: false
 name: Dhall Actions
 runs:
