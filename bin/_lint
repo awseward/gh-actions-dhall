@@ -10,3 +10,5 @@ _check_version
 find . -type f -name '*.dhall' | sort -u | xargs -t dhall lint
 
 git diff --color=always --exit-code
+
+git checkout -- .
