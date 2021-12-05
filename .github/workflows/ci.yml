@@ -16,9 +16,10 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-dhall@0.3.2"
+      - uses: "awseward/gh-actions-dhall@0.4.0"
         with:
-          dhallVersion: '1.39.0'
+          dhallVersion: '1.40.2'
+          errorOnFreezeDiff: false
           typecheck_no_cache: false
           typecheck_package_files_only: false
   check-shell:
@@ -26,7 +27,7 @@ jobs:
       - ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
-      - uses: "awseward/gh-actions-shell@0.1.5"
+      - uses: "awseward/gh-actions-shell@0.1.7"
 name: CI
 on:
   - push
