@@ -1,4 +1,4 @@
 { required = ./required.dhall
 , default = ./default.dhall
-, description = Some ./description as Text
+, description = ./description as Text
 }

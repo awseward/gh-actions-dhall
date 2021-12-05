@@ -1,7 +1,4 @@
-let ActionSpec = ./ActionSpec.dhall
-
-let JSON =
-      https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/JSON/package.dhall
+let _lib = ./_lib/package.dhall
 
 in    { name = "Dhall Actions"
       , description = "A couple of actions for checking dhall files"
@@ -12,4 +9,4 @@ in    { name = "Dhall Actions"
         }
       , inputs = ./inputs/package.dhall
       }
-    : ActionSpec
+    : _lib.ActionSpec
