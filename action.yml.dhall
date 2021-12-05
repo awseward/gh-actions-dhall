@@ -1,4 +1,4 @@
-let _lib = ./_lib/package.dhall
+let imports = ./_lib/package.dhall
 
 in    { name = "Dhall Actions"
       , description = "A couple of actions for checking dhall files"
@@ -9,4 +9,4 @@ in    { name = "Dhall Actions"
         }
       , inputs = ./inputs/package.dhall
       }
-    : _lib.ActionSpec
+    : imports.ActionSpec
