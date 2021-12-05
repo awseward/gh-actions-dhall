@@ -1,1 +1,1 @@
-let JSON = (../imports.dhall).JSON in Some (JSON.string "1.40.2")
+let JSON = (../imports.dhall).JSON in JSON.string "1.40.2"
