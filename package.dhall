@@ -1,6 +1,6 @@
-let GHA = (./imports.dhall).dhall-misc.GHA
-
 let Inputs = ./inputs.dhall
+
+let GHA = (./imports.dhall).dhall-misc.GHA
 
 let mkStep/next = GHA.actions.mkStep/next Inputs.Type Inputs.{ toJSON }
 
