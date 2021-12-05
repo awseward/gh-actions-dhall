@@ -9,4 +9,17 @@ _check_version
 
 find . -type f -name '*.dhall' | sort -u | xargs -t dhall freeze
 
-git diff --color=always --exit-code
+
+error_on_freeze_diff="${INPUT_ERRORONFREEZEDIFF:-false}"
+
+echo "error_on_freeze_diff=${error_on_freeze_diff}"
+
+if [ "${error_on_freeze_diff}" = 'true' ]; then
+  echo git diff --color=always --exit-code
+       git diff --color=always --exit-code
+else
+  echo git diff --color=always
+       git diff --color=always
+fi
+
+git checkout -- .

@@ -9,11 +9,18 @@ runs:
 inputs:
   dhallVersion:
     required: false
-    default: '1.39.0'
+    default: '1.40.2'
     description: |
       Version of dhall-haskell to use.
 
       Should be a tag from https://github.com/dhall-lang/dhall-haskell.
+
+  errorOnFreezeDiff:
+    required: false
+    default: false
+    description: |
+      Whether a diff resulting from `dhall freeze` should be treated as an
+      error.
 
   typecheck_no_cache:
     required: false
