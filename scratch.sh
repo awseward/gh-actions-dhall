@@ -30,6 +30,46 @@ help() {
 
     - write_action_yml
       Writes action.yml per action.yml.dhall and ./inputs/*
+
+NOTE: Current "bootstrap" (kind of) looks like this (replacing <script> with
+the actual script filepath):
+
+    ```sh
+    <script> write_input_packages_all
+    <script> write_inputs_pkg
+    <script> write_action_yml
+    ```
+
+  I say "kind of" because this not help scaffold or populate any of the
+  files it expects, which at the time of writing, are:
+
+    .
+    ├── action.yml.dhall
+    └── inputs
+        ├── <input_name>
+        │   ├── default.dhall
+        │   ├── description
+        │   └── required.dhall
+        ├── <input_name>
+        │   └── …
+        ├── <input_name>
+        │   └── …
+        ├── …
+
+  To do a kind of "reset and check", you can run this:
+
+  ```sh
+  # Before doing this, make sure you have whichever of these you would be sad
+  # to lose tracked in source control
+  rm -rf action.yml ./inputs/*/package.dhall ./inputs/package.dhall
+
+  # … run the "boostrap" lines from above
+  ```
+
+  I would like to add some utility for scaffolding these and also potentially
+  for keeping them updated.
+
+  Probably could do with some tooling around `action.yml.dhall` as well…
 '
 }
 
