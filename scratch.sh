@@ -85,7 +85,7 @@ gen_inputs_pkg() {
     echo -n 'toMap { '
     list_inputs_by_dir | xargs -n2 -I{} echo -n ', {} = ./{}/package.dhall'
     echo -n '}'
-  ) | dhall format
+  ) | dhall lint
 }
 
 write_inputs_pkg() {
@@ -116,7 +116,7 @@ gen_input_pkg() {
   , description        = ./description as Text
   , required           = ./required.dhall
 }
-" | dhall lint # > "${dir_path}/package.dhall"
+" | dhall lint
 }
 
 write_input_package() {
