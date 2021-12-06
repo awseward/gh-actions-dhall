@@ -31,13 +31,16 @@ help() {
     - write_action_yml
       Writes action.yml per action.yml.dhall and ./inputs/*
 
+  Misc:
+
+    - write_all
+      Writes all of the above
+
 NOTE: Current "bootstrap" (kind of) looks like this (replacing <script> with
 the actual script filepath):
 
     ```sh
-    <script> write_input_packages_all
-    <script> write_inputs_pkg
-    <script> write_action_yml
+    <script> write_all
     ```
 
   I say "kind of" because this not help scaffold or populate any of the
@@ -138,6 +141,14 @@ gen_action_yml() {
 
 write_action_yml() {
   "$0" gen_action_yml --output ./action.yml
+}
+
+write_all() {
+  xargs -t -n1 "$0" <<< '
+    write_input_packages_all
+    write_inputs_pkg
+    write_action_yml
+  '
 }
 
 "${@:-help}"
