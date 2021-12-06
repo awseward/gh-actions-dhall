@@ -3,17 +3,26 @@
 set -euo pipefail
 
 help() {
-  # shellcheck disable=SC2016
-  echo 'Functions:
+  echo $'Usage:
 
-  For inputs:
-  - gen_input_pkg <input_name>
-  - write_input_package <input_name>
-  - write_input_packages_all
+  For ./inputs/<input_name>/package.dhall:
 
-  For `action.yml`:
-  - gen_action_yml
-  - write_action_yml
+    - gen_input_pkg <input_name>
+      Generates a Dhall expression reflecting ./inputs/<input_name>/*
+
+    - write_input_package <input_name>
+      Writes ./inputs/<input_name>/package.dhall per ./inputs/<input_name>/*
+
+    - write_input_packages_all
+      Applies `write_input_package` to all inputs present under ./inputs/
+
+  For action.yml:
+
+    - gen_action_yml
+      Generates a YAML document per action.yml.dhall and ./inputs/*
+
+    - write_action_yml
+      Writes action.yml per action.yml.dhall and ./inputs/*
 '
 }
 
