@@ -42,19 +42,13 @@ help() {
     - write_all
       Writes all of the above
 
-NOTE: Current "bootstrap" (kind of) looks like this (replacing <script> with
-the actual script filepath):
+Notes:
 
-    ```sh
-    <script> write_all
-    ```
+  At the time of writing, the expected layout of files is, roughly:
 
-  I say "kind of" because this not help scaffold or populate any of the
-  files it expects, which at the time of writing, are:
-
-    .
     ├── action.yml.dhall
     └── inputs
+        ├── imports.dhall (needs to import & forward JSON from Prelude)
         ├── <input_name>
         │   ├── default.dhall
         │   ├── description
@@ -72,13 +66,13 @@ the actual script filepath):
   # to lose tracked in source control
   rm -rf action.yml ./inputs/*/package.dhall ./inputs/package.dhall
 
-  # … run the "boostrap" lines from above
+  '"$0"' write_all
   ```
 
   I would like to add some utility for scaffolding these and also potentially
   for keeping them updated.
 
-  Probably could do with some tooling around `action.yml.dhall` as well…
+  Probably could do with some tooling around action.yml.dhall as well…
 '
 }
 
