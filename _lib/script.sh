@@ -115,7 +115,6 @@ setup_input() {
   _setup default.dhall "$(dhall format <<< '
     -- If this input has no default value, you can also just remove this file.
     -- Otherwise, consult the Dhall Prelude for valid JSON types…
-    --
     (../imports.dhall).JSON.null
   ')"
   # Probably doesn't make a whole lot of sense to have an input depcrated
