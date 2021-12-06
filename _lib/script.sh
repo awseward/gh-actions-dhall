@@ -90,15 +90,16 @@ list_inputs_by_dir() {
 _todo() { >&2 echo '>>>>>>>> TODO <<<<<<<<' && return 1; }
 
 setup_input_files() {
-  readonly input_name="$1"
-  readonly dir_path="./inputs/${input_name}"
+  local -r input_name="$1"
+  local -r dir_path="./inputs/${input_name}"
 
   mkdir -p "${dir_path}"
 
   _hmmm() {
-    local file_path="${dir_path}/$1"; readonly file_path
+    local -r file_path="${dir_path}/$1"
 
     if [ ! -f "${file_path}" ]; then
+      >&2 echo "Setting up ${file_path}"
       echo "$2" > "${file_path}"
     fi
   }
@@ -125,20 +126,21 @@ write_inputs_pkg() {
 }
 
 gen_input_pkg() {
-  readonly input_name="$1"
-  readonly dir_path="./inputs/${input_name}"
+  local -r input_name="$1"
+  local -r dir_path="./inputs/${input_name}"
 
   if [ -f "${dir_path}/deprecationMessage.txt" ]; then
-    readonly dep_msg_expr="Some (./deprecationMessage.txt as Text)"
+    local -r dep_msg_expr="Some (./deprecationMessage.txt as Text)"
   else
-    readonly dep_msg_expr='None Text'
+    local -r dep_msg_expr='None Text'
   fi
 
   if [ -f "${dir_path}/default.dhall" ]; then
     default_expr="Some ./default.dhall"
   else
     default_expr="None JSON.Type"
-    readonly json_expr="${2:-"$(yaml-to-dhall <<< '[{}, 0]' | dhall type | tail -n +2)"}"
+
+    local -r json_expr="${2:-"$(yaml-to-dhall <<< '[{}, 0]' | dhall type | tail -n +2)"}"
     echo "let JSON = ${json_expr} in"
   fi
 
