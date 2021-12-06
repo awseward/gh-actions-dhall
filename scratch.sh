@@ -5,6 +5,13 @@ set -euo pipefail
 help() {
   echo $'Usage:
 
+  For ./inputs/package.dhall:
+    - gen_inputs_pkg
+      Generates (but does not write) ./inputs/package.dhall
+
+    - write_inputs_pkg
+      Writes ./inputs/package.dhall
+
   For ./inputs/<input_name>/package.dhall:
 
     - gen_input_pkg <input_name>
@@ -24,6 +31,25 @@ help() {
     - write_action_yml
       Writes action.yml per action.yml.dhall and ./inputs/*
 '
+}
+
+list_inputs_by_dir() {
+  # shellcheck disable=SC2038
+  find ./inputs -mindepth 1 -maxdepth 1 -type d | xargs -n1 basename | sort -u
+}
+
+_todo() { >&2 echo '>>>>>>>> TODO <<<<<<<<' && return 1; }
+
+gen_inputs_pkg() {
+  (
+    echo -n 'toMap { '
+    list_inputs_by_dir | xargs -n2 -I{} echo -n ', {} = ./{}/package.dhall'
+    echo -n '}'
+  ) | dhall format
+}
+
+write_inputs_pkg() {
+  "$0" gen_inputs_pkg > ./inputs/package.dhall
 }
 
 gen_input_pkg() {
@@ -61,19 +87,17 @@ write_input_package() {
 }
 
 write_input_packages_all() {
-  # shellcheck disable=SC2038
-  find ./inputs -mindepth 1 -maxdepth 1 -type d \
-    | xargs -n1 basename \
-    | xargs -t -n1 "$0" write_input_package
+  "$0" list_inputs_by_dir | xargs -t -n1 "$0" write_input_package
 }
 
 gen_action_yml() {
   # shellcheck disable=SC2068
-  dhall-to-yaml --omit-empty $@ <<< ./action.yml.dhall
+  dhall-to-yaml --documents --generated-comment --omit-empty $@ <<< \
+    ./action.yml.dhall
 }
 
 write_action_yml() {
-  "$0" gen_action_yml --output ./action.yml --generated-comment
+  "$0" gen_action_yml --output ./action.yml
 }
 
 "${@:-help}"
