@@ -7,6 +7,6 @@ in    { name = "Dhall Actions"
         , image = "Dockerfile"
         , args = [ "\${{ inputs.dhallVersion }}" ]
         }
-      , inputs = ./inputs/package.dhall
+      , inputs = toMap ./inputs/package.dhall
       }
     : imports.ActionSpec
