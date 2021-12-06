@@ -95,7 +95,7 @@ setup_input_files() {
 
   mkdir -p "${dir_path}"
 
-  _hmmm() {
+  _setup() {
     local -r file_path="${dir_path}/$1"
 
     if [ ! -f "${file_path}" ]; then
@@ -106,11 +106,17 @@ setup_input_files() {
 
   # NOTE: Should probably have some kind of interactive flow to choose whether
   # to write or not write some of these files depending on the input:
-  # - default.dhall
-  # - required.dhall
-  _hmmm default.dhall  'TODO: Change this file to a default value (or delete it if this input is required)'
-  _hmmm description    'TODO: Write a description…'
-  _hmmm required.dhall 'TODO: Change this file to be True or False'
+  #   - default.dhall
+  #   - deprecationMessage.txt
+  #   - required.dhall
+  _setup default.dhall \
+    'TODO: Change this file to a JSON.Type value (or delete this file if this input is required)'
+  _setup deprecationMessage.txt \
+    'TODO: Write a deprecation message (or delete this file if this input is not deprecated)'
+  _setup description.txt \
+    'TODO: Write a description'
+  _setup required.dhall \
+    'TODO: Change this file to be True or False'
 }
 
 gen_inputs_pkg() {
