@@ -99,6 +99,7 @@ setup_input() {
       >&2 echo "Setting up ${file_path}"
       echo "$2" > "${file_path}"
     fi
+    "$0" write_input_package "${input_name}"
   }
 
   # NOTE: Should probably have some kind of interactive flow to choose whether
