@@ -142,9 +142,9 @@ gen_input_pkg() {
   fi
 
   if [ -f "${dir_path}/default.dhall" ]; then
-    default_expr="Some ./default.dhall"
+    local -r default_expr="Some ./default.dhall"
   else
-    default_expr="None JSON.Type"
+    local -r default_expr="None JSON.Type"
 
     local -r json_expr="${2:-"$(yaml-to-dhall <<< '[{}, 0]' | dhall type | tail -n +2)"}"
     echo "let JSON = ${json_expr} in"
@@ -153,7 +153,7 @@ gen_input_pkg() {
   cat <<< "
   { default            = ${default_expr}
   , deprecationMessage = ${dep_msg_expr}
-  , description        = ./description as Text
+  , description        = ./description.txt as Text
   , required           = ./required.dhall
 }
 " | dhall lint
