@@ -5,6 +5,12 @@ set -euo pipefail
 help() {
   echo $'Usage:
 
+  For ./inputs/<input_name>/*:
+
+    - setup_input_files <input_name>
+      Sets up the expected files in ./inputs/<input_name>/
+      If any already exist, they are not modified
+
   For ./inputs/package.dhall:
     - gen_inputs_pkg
       Generates (but does not write) ./inputs/package.dhall
@@ -82,6 +88,29 @@ list_inputs_by_dir() {
 }
 
 _todo() { >&2 echo '>>>>>>>> TODO <<<<<<<<' && return 1; }
+
+setup_input_files() {
+  readonly input_name="$1"
+  readonly dir_path="./inputs/${input_name}"
+
+  mkdir -p "${dir_path}"
+
+  _hmmm() {
+    local file_path="${dir_path}/$1"; readonly file_path
+
+    if [ ! -f "${file_path}" ]; then
+      echo "$2" > "${file_path}"
+    fi
+  }
+
+  # NOTE: Should probably have some kind of interactive flow to choose whether
+  # to write or not write some of these files depending on the input:
+  # - default.dhall
+  # - required.dhall
+  _hmmm default.dhall  'TODO: Change this file to a default value (or delete it if this input is required)'
+  _hmmm description    'TODO: Write a description…'
+  _hmmm required.dhall 'TODO: Change this file to be True or False'
+}
 
 gen_inputs_pkg() {
   (
