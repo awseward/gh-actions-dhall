@@ -3,9 +3,12 @@ let mkPackage =
 
 let Inputs = ./inputs.dhall
 
-in    mkPackage
-        Inputs.Type
-        Inputs.{ toJSON }
-        "awseward/gh-actions-dhall"
-        "0.4.0"
-    ⫽ { Inputs }
+let id =
+    -- Would like a better file name/location maybe
+      ./actionId as Text
+
+let version =
+    -- Would like a better file name/location maybe
+      ./actionVersion as Text
+
+in  mkPackage Inputs.Type Inputs.{ toJSON } id version ⫽ { Inputs }
