@@ -106,17 +106,26 @@ setup_input_files() {
 
   # NOTE: Should probably have some kind of interactive flow to choose whether
   # to write or not write some of these files depending on the input:
+  #
   #   - default.dhall
   #   - deprecationMessage.txt
   #   - required.dhall
-  _setup default.dhall \
-    'TODO: Change this file to a JSON.Type value (or delete this file if this input is required)'
+  #
+  # Alternatively, these could all just be provided via static file templates,
+  # which I'd probably prefer…
+  #
+  _setup default.dhall "$(dhall format <<< '
+    -- If this input has no default value, you can also just remove this file.
+    -- Otherwise, consult the Dhall Prelude for valid JSON types…
+    --
+    (../imports.dhall).JSON.null
+  ')"
   _setup deprecationMessage.txt \
     'TODO: Write a deprecation message (or delete this file if this input is not deprecated)'
   _setup description.txt \
     'TODO: Write a description'
-  _setup required.dhall \
-    'TODO: Change this file to be True or False'
+  # This one should be pretty self-explanatory for the user to change if needed…
+  _setup required.dhall 'True'
 }
 
 gen_inputs_pkg() {
@@ -132,30 +141,18 @@ write_inputs_pkg() {
 }
 
 gen_input_pkg() {
-  local -r input_name="$1"
-  local -r dir_path="./inputs/${input_name}"
-
-  if [ -f "${dir_path}/deprecationMessage.txt" ]; then
-    local -r dep_msg_expr="Some (./deprecationMessage.txt as Text)"
-  else
-    local -r dep_msg_expr='None Text'
-  fi
-
-  if [ -f "${dir_path}/default.dhall" ]; then
-    local -r default_expr="Some ./default.dhall"
-  else
-    local -r default_expr="None JSON.Type"
-
-    local -r json_expr="${2:-"$(yaml-to-dhall <<< '[{}, 0]' | dhall type | tail -n +2)"}"
-    echo "let JSON = ${json_expr} in"
-  fi
-
+  # NOTE: This is now just a plain old file we could just throw straight in
+  # without inspecting the target location 🤔
   cat <<< "
-  { default            = ${default_expr}
-  , deprecationMessage = ${dep_msg_expr}
-  , description        = ./description.txt as Text
-  , required           = ./required.dhall
-}
+    let imports = ../imports.dhall
+
+    let JSON = imports.JSON
+
+    in { default         = ./default.dhall ? JSON.null
+    , deprecationMessage = Some ./deprecationMessage.dhall as Text ? None Text
+    , description        = ./description.txt as Text
+    , required           = ./required.dhall
+    }
 " | dhall lint
 }
 

@@ -1,6 +1,6 @@
 let JSON = ./JSON.dhall
 
-in  { default : Optional JSON.Type
+in  { default : JSON.Type
     , deprecationMessage : Optional Text
     , description : Text
     , required : Bool
