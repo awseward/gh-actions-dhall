@@ -7,9 +7,12 @@ help() {
 
   For ./inputs/<input_name>/*:
 
-    - setup_input_files <input_name>
+    - setup_input <input_name>
       Sets up the expected files in ./inputs/<input_name>/
       If any already exist, they are not modified
+
+    - setup_inputs <input_name> [additional input names…]
+      Sets up multiple inputs at once; expects names space-separated
 
   For ./inputs/package.dhall:
     - gen_inputs_pkg
@@ -83,7 +86,7 @@ list_inputs_by_dir() {
 
 _todo() { >&2 echo '>>>>>>>> TODO <<<<<<<<' && return 1; }
 
-setup_input_files() {
+setup_input() {
   local -r input_name="$1"
   local -r dir_path="./inputs/${input_name}"
 
@@ -114,12 +117,21 @@ setup_input_files() {
     --
     (../imports.dhall).JSON.null
   ')"
-  _setup deprecationMessage.txt \
-    'TODO: Write a deprecation message (or delete this file if this input is not deprecated)'
+  # Probably doesn't make a whole lot of sense to have an input depcrated
+  # already when just setting it up…
+  #
+  # _setup deprecationMessage.txt \
+  #   'TODO: Write a deprecation message (or delete this file if this input is not deprecated)'
+  #
   _setup description.txt \
     'TODO: Write a description'
   # This one should be pretty self-explanatory for the user to change if needed…
   _setup required.dhall 'True'
+}
+
+setup_inputs() {
+  # shellcheck disable=SC2068
+  echo $@ | xargs -n1 "$0" setup_input
 }
 
 gen_inputs_pkg() {
