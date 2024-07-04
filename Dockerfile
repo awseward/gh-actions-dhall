@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stable
 
 # hadolint ignore=DL3008,DL3015
 RUN apt-get update \
